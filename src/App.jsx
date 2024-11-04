@@ -39,15 +39,18 @@ function App() {
 function WalletConnector() {
   const { connectors, connect } = useConnect();
   return (
-    <div className='flex justify-center my-10 space-x-2'>
-      <span className="space-x-2 mt-1">Wallet:</span>
-      {connectors.map((connector) => (
-        <Button key={connector.uid} onClick={() => connect({ connector })}>
-          {connector.name}
-        </Button>
-      ))}
+    <div className="flex flex-col items-center">
+      <h1 className="text-6xl text-center w-full font-extrabold mt-4">ETH Adapters</h1>
+      <div className='flex justify-center my-10 space-x-2'>
+        <span className="space-x-2 mt-1">Wallet:</span>
+        {connectors.map((connector) => (
+          <Button key={connector.uid} onClick={() => connect(connector)}>
+            {connector.name}
+          </Button>
+        ))}
+      </div>
     </div>
-  )
+  );
 }
 
 function EthSend() {
@@ -87,8 +90,10 @@ export function SendTransaction() {
   async function sendTx() {
     const to = toRef.current.value;
     const value = valueRef.current.value;
-    sendTransaction({ to, 
-    value: parseEther(value) });
+    sendTransaction({
+      to,
+      value: parseEther(value)
+    });
   }
 
   return (
